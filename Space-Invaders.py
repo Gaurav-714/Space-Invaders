@@ -54,7 +54,7 @@ while run:
         ex1 = -3
 
     disp.fill(blue)
-    disp.blit(bgimg, (0,0))
+    disp.blit(bgimg, (0,0))  # To dispaly the Background Image on Screen
     disp.blit(img1,(px,py))  # To dispaly the Spaceship on Screen
     disp.blit(img2,(ex,ey))  # To dispaly the Alien on Screen
     pg.display.flip()
