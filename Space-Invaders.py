@@ -1,9 +1,11 @@
 import pygame as pg
 import random as rm
+from math import sqrt
 
 pg.init()
-disp = pg.display.set_mode([800,600])
+disp = pg.display.set_mode([800,600]) 
 
+# For Background Image
 bgimg = pg.image.load("SpaceBG2.png")
 
 # For Player
@@ -13,12 +15,18 @@ py = 480
 px1 = 0
 py1 = 0
 
-# For Enemy
-img2 = pg.image.load("Alien.png")
-ex = rm.randint(50,750)
-ey = rm.randint(20,100)
-ex1 = 1
-ey1 = 10
+# For Multiple Enemies
+img2 = []
+ex = []
+ey = []
+ex1 = []
+ey1 = []
+for i in range(0,10):
+    img2.append(pg.image.load("Alien.png"))
+    ex.append(rm.randint(50,750))
+    ey.append(rm.randint(10,200))
+    ex1.append(1)
+    ey1.append(50)
 
 # For Bullet 
 img3 = pg.image.load("Bullet.png")
@@ -27,12 +35,16 @@ by = 480
 by1 = 0
 state = 0
 
+score_value = 0
+score_font = pg.font.SysFont("comicsansms",35)
+over_font = pg.font.SysFont("comicsansms",70) 
+
 run = True
 while run:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
-# Using KEYDOWN to Move Spaceship when the Key is pressed           
+# Using KEYDOWN to Move Spaceship when a Key is pressed           
     if event.type == pg.KEYDOWN:
         if event.key == pg.K_LEFT: # Key to move Spaceship Left
             px1 = -4
@@ -45,40 +57,58 @@ while run:
                 bx = px
                 state = 1
                 by1 = -15   
-# Using KEYUP to stop Spaceship when Player releases the Key
+# Using KEYUP to stop Spaceship when Player releases a Key
     if event.type == pg.KEYUP:
         if event.key == pg.K_LEFT or event.key == pg.K_RIGHT:
             px1 = 0
             py1 = 0
 # To change the Co-ordinates of...
     px = px + px1 # Spaceship
-    ex = ex + ex1 # Enemy
     by = by + by1 # Bullet
 
-# Setting limits for the Spaceship so that it doesn't get out of the Frame
+# Setting limits for the Spaceship so that it doesn't get out of the Window
     if px <= 0:
         px = 0
     if px >= 736: 
         px = 736
 
-# Setting limits for the Enemy so that it doesn't get out of the Frame
-    if ex <= 0:
-        ex1 = 3
-        ey = ey + ey1 # To Pull Enemy Downwards whenever it touches the Left side of Frame
-    if ex >= 750:
-        ex1 = -3
-        ey = ey + ey1 # To Pull Enemy Downwards whenever it touches the Right side of Frame
+    for i in range(0,10):
+    # Setting limits for the Enemy so that it doesn't get out of the Window
+        if ex[i] <= 0:
+            ex1[i] = 3
+            ey[i] = ey[i] + ey1[i] # To Move Enemy Downwards whenever it touches the Left side of Window
+        if ex[i] >= 750:
+            ex1[i] = -3
+            ey[i] = ey[i] + ey1[i] # To Move Enemy Downwards whenever it touches the Right side of Window
 
     disp.fill((0,0,0))
 
-    disp.blit(bgimg,(0,0))  # To dispaly the Background Image on Screen
+    disp.blit(bgimg,(0,0))  # To dispaly the Background Image on Window
+    
     if state == 1: # Loop to add another Bullet after firing once
-        disp.blit(img3,(bx+16,by))  # To dispaly the Bullet on Screen
+        disp.blit(img3,(bx+16,by))  # To dispaly the Bullet on Window
         if by <= 0:
             by = 480
             state = 0       
-    disp.blit(img1,(px,py))  # To dispaly the Spaceship on Screen
-    disp.blit(img2,(ex,ey))  # To dispaly the Enemy on Screen
+    
+    disp.blit(img1,(px,py))  # To dispaly the Spaceship on Window
+    
+    for i in range(0,10): # To Disappear the Enemies 
+        if ey[i] > 430:  # Enemies come closer to the Spaceship
+            over = over_font.render("GAME-OVER",True,(255,255,0))
+            disp.blit(over,(200,200)) # To display GAME OVER
+            for j in range(0,10):
+                ey[j] = 1000 # Enemies get out of  the Window
+    for i in range(0,10):
+        distance = sqrt(((bx-ex[i])**2) + ((by-ey[i])**2)) # To Calculate the distance between Enemy & Bullet
+        if distance < 30: # -> The Enemy is Hitted by the Bullet
+            ex[i] = rm.randint(50,750) # After Hit, the Co-ordinates /
+            ey[i] = rm.randint(10,200) # -of the enemy will be changed
+            score_value = score_value + 10 # To Calculate the Score        
+        ex[i] = ex[i] + ex1[i] # To change the Co-ordinates of Enemies
+        score = score_font.render("Score : "+str(score_value),True,(255,255,0))
+        disp.blit(score,(10,10)) # To display the Score on Window
+        disp.blit(img2[i],(ex[i],ey[i]))  # To dispaly the Enemies on Window
     
     pg.display.flip()
 pg.QUIT()
