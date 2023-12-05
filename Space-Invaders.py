@@ -27,8 +27,8 @@ ex = []
 ey = []
 ex1 = []
 ey1 = []
-for i in range(0,10):
-    img2.append(pg.image.load("Alien.png"))
+for i in range(0,20):
+    img2.append(pg.image.load("Alien2.0.png"))
     ex.append(rm.randint(50,750))
     ey.append(rm.randint(20,200))
     ex1.append(1)
@@ -79,7 +79,7 @@ while run:
     if px >= 736: 
         px = 736
 
-    for i in range(0,10):
+    for i in range(0,20):
     # Setting limits for the Enemy so that it doesn't get out of the Window
         if ex[i] <= 0:
             ex1[i] = 3
@@ -101,17 +101,17 @@ while run:
     
     disp.blit(img1,(px,py))  # To dispaly the Spaceship on Window
     
-    for i in range(0,10): # To Disappear the Enemies 
-        if ey[i] > 430:  # Enemies come closer to the Spaceship
+    for i in range(0,20): # To Disappear the Enemies 
+        if ey[i] > 450:  # Enemies come closer to the Spaceship
             over = over_font.render("GAME-OVER",True,(255,255,0))
             disp.blit(over,(200,200)) # To display GAME OVER
-            for j in range(0,10):
-                ey[j] = 1000 # Enemies get out of  the Window
+            for j in range(0,20):
+                ey[j] = 2000 # Enemies get out of  the Window
             
-    for i in range(0,10):
+    for i in range(0,20):
         # To Calculate the distance between Enemy & Bullet
         distance = sqrt(((bx-ex[i])**2) + ((by-ey[i])**2))
-        if distance < 20: # -> The Enemy is Hitted by the Bullet
+        if distance < 25: # -> The Enemy is Hitted by the Bullet
             collision.play() 
             ex[i] = rm.randint(50,750) # After Hit, the Co-ordinates /
             ey[i] = rm.randint(10,200) # -of the enemy will be changed
