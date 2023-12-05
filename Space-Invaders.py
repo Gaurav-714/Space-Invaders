@@ -1,12 +1,18 @@
 import pygame as pg
 import random as rm
 from math import sqrt
+from pygame import mixer
 
 pg.init()
 disp = pg.display.set_mode([800,600]) 
 
-# For Background Image
-bgimg = pg.image.load("SpaceBG2.png")
+# For Background...
+bgimg = pg.image.load("SpaceBG2.png") # Image
+mixer.music.load("Beast-BGM.mp3") # Music
+mixer.music.play(-1) 
+
+bullet = mixer.Sound("bullet.wav") # For Bullet Sound, when Fired
+collision = mixer.Sound("collision.wav") # Sound when Bullet hits the Enemy
 
 # For Player
 img1 = pg.image.load("Spaceship.png")
@@ -24,7 +30,7 @@ ey1 = []
 for i in range(0,10):
     img2.append(pg.image.load("Alien.png"))
     ex.append(rm.randint(50,750))
-    ey.append(rm.randint(10,200))
+    ey.append(rm.randint(20,200))
     ex1.append(1)
     ey1.append(50)
 
@@ -54,6 +60,7 @@ while run:
             py1 = 0
         elif event.key == pg.K_LSHIFT: # Key to Fire Bullet
             if state == 0:
+                bullet.play()
                 bx = px
                 state = 1
                 by1 = -15   
@@ -76,13 +83,14 @@ while run:
     # Setting limits for the Enemy so that it doesn't get out of the Window
         if ex[i] <= 0:
             ex1[i] = 3
-            ey[i] = ey[i] + ey1[i] # To Move Enemy Downwards whenever it touches the Left side of Window
+            # To Move Enemy Downwards whenever it touches the Left side of Window
+            ey[i] = ey[i] + ey1[i] 
         if ex[i] >= 750:
             ex1[i] = -3
-            ey[i] = ey[i] + ey1[i] # To Move Enemy Downwards whenever it touches the Right side of Window
-
+            # To Move Enemy Downwards whenever it touches the Right side of Window
+            ey[i] = ey[i] + ey1[i] 
+            
     disp.fill((0,0,0))
-
     disp.blit(bgimg,(0,0))  # To dispaly the Background Image on Window
     
     if state == 1: # Loop to add another Bullet after firing once
@@ -99,9 +107,12 @@ while run:
             disp.blit(over,(200,200)) # To display GAME OVER
             for j in range(0,10):
                 ey[j] = 1000 # Enemies get out of  the Window
+            
     for i in range(0,10):
-        distance = sqrt(((bx-ex[i])**2) + ((by-ey[i])**2)) # To Calculate the distance between Enemy & Bullet
-        if distance < 30: # -> The Enemy is Hitted by the Bullet
+        # To Calculate the distance between Enemy & Bullet
+        distance = sqrt(((bx-ex[i])**2) + ((by-ey[i])**2))
+        if distance < 20: # -> The Enemy is Hitted by the Bullet
+            collision.play() 
             ex[i] = rm.randint(50,750) # After Hit, the Co-ordinates /
             ey[i] = rm.randint(10,200) # -of the enemy will be changed
             score_value = score_value + 10 # To Calculate the Score        
