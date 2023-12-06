@@ -5,6 +5,7 @@ from math import sqrt
 from pygame import mixer
 
 async def main():
+
     pg.init()
     disp = pg.display.set_mode([800,600]) 
 
@@ -12,7 +13,6 @@ async def main():
     bgimg = pg.image.load("SpaceBG2.png") # Image
     mixer.music.load("Beast-BGM.mp3") # Music
     mixer.music.play(-1) 
-
     bullet = mixer.Sound("bullet.wav") # For Bullet Sound, when Fired
     collision = mixer.Sound("collision.wav") # Sound when Bullet hits the Enemy
 
@@ -46,7 +46,7 @@ async def main():
     score_value = 0
     score_font = pg.font.SysFont("comicsansms",35)
     over_font = pg.font.SysFont("comicsansms",70) 
-    
+
     run = True
     while run:
         for event in pg.event.get():
@@ -124,6 +124,7 @@ async def main():
             disp.blit(img2[i],(ex[i],ey[i]))  # To dispaly the Enemies on Window
 
         pg.display.flip()
-    pg.QUIT()
+    pg.QUIT
     await asyncio.sleep(0)
+
 asyncio.run(main())
