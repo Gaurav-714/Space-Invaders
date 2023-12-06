@@ -124,6 +124,6 @@ async def main():
             disp.blit(img2[i],(ex[i],ey[i]))  # To dispaly the Enemies on Window
 
         pg.display.flip()
-    pg.QUIT()
+    pg.QUIT
     await asyncio.sleep(0)
 asyncio.run(main())
