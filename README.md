@@ -36,14 +36,13 @@ This project aims to recreate the iconic Space Invaders experience with modern p
 
 ## Gameplay
 
-- **Arrow ➡:** To Move Right
-- **Arrow ⬅:** To Move Left
+- **Arrow ➡ :** To Move Right
+- **Arrow ⬅ :** To Move Left
 - **Left-Shift :** To Fire Bullet
 
 ## Screenshots
 
-<img width="599" alt="Screenshot 2023-12-09 213944" src="https://github.com/Gaurav-714/Space-Invaders/assets/151722262/e98be799-39f2-4895-afac-86d55cbf2010">
-<img width="598" alt="Screenshot 2023-12-09 214346" src="https://github.com/Gaurav-714/Space-Invaders/assets/151722262/3b8a7658-22d3-4094-98b9-9307c7f12ff2">
+<img width="500" alt="Screenshot 2023-12-09 213944" src="https://github.com/Gaurav-714/Space-Invaders/assets/151722262/74a7a690-59ab-4194-a645-36b02e61e4f2">   <img width="500" alt="Screenshot 2023-12-09 214346" src="https://github.com/Gaurav-714/Space-Invaders/assets/151722262/84af3287-8ac1-430e-97b1-be32a6518e1a">
 
 ## Contributing
 
@@ -63,7 +62,6 @@ This project is licensed under the [MIT License](https://opensource.org/license/
 
 - Resources : Thanks to the open-source community for contributions.
 - Inspiration : The original Space Invaders game created by Tomohiro Nishikado.
-
 
 ## Contact
 
