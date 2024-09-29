@@ -2,24 +2,28 @@ import pygame as pg
 import random as rm
 from math import sqrt
 from pygame import mixer
+import os
+current_path = os.path.dirname(os.path.abspath(__file__))
+
 
 pg.init()
 disp = pg.display.set_mode([800,600]) 
 
 # For Background...
-bgimg = pg.image.load("SpaceBG2.png") # Image
-mixer.music.load("Beast-BGM.mp3") # Music
+bgimg = pg.image.load(os.path.join(current_path, "assets", "SpaceBG2.png"))  # Image
+mixer.music.load(os.path.join(current_path, "assets", "Beast-BGM.mp3")) # Music
 mixer.music.play(-1) 
 
-bullet = mixer.Sound("bullet.wav") # For Bullet Sound, when Fired
-collision = mixer.Sound("collision.wav") # Sound when Bullet hits the Enemy
+bullet = mixer.Sound(os.path.join(current_path, "assets", "bullet.wav")) # For Bullet Sound, when Fired
+collision = mixer.Sound(os.path.join(current_path, "assets", "collision.wav"))  # Sound when Bullet hits the Enemy
 
 # For Player
-img1 = pg.image.load("Spaceship.png")
+img1 = pg.image.load(os.path.join(current_path, "assets", "Spaceship.png"))
 px = 20
 py = 480
 px1 = 0
 py1 = 0
+
 
 # For Multiple Enemies
 img2 = []
@@ -28,14 +32,15 @@ ey = []
 ex1 = []
 ey1 = []
 for i in range(0,20):
-    img2.append(pg.image.load("Alien2.0.png"))
+    img2.append(pg.image.load(os.path.join(current_path, "assets", "Alien.png")))
     ex.append(rm.randint(50,750))
     ey.append(rm.randint(20,200))
     ex1.append(1)
     ey1.append(50)
 
+
 # For Bullet 
-img3 = pg.image.load("Bullet.png")
+img3 = pg.image.load(os.path.join(current_path, "assets", "Bullet.png"))
 bx = 0
 by = 480
 by1 = 0
